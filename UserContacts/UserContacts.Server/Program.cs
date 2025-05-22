@@ -1,5 +1,6 @@
 
 using UserContacts.Server.Configurations;
+using UserContacts.Server.Endpoints;
 using UserContacts.Server.Middlewares;
 
 namespace UserContacts.Server
@@ -19,10 +20,14 @@ namespace UserContacts.Server
             builder.ConfigureDatabase();
             builder.ConfigureJwtSettings();
             builder.ConfigureServices();
-            builder.ConfigurationJwtAuth();
+            //builder.ConfigurationJwtAuth();
 
             var app = builder.Build();
 
+            app.MapAuthEndpoints();
+            app.MapUserEndpoints();
+            app.MapContactEndpoints();
+            app.MapRoleEndpoints();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
